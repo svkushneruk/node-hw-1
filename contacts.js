@@ -8,25 +8,24 @@ const writeContacts = async (contacts) => await fs.writeFile(contactsPath, JSON.
 
 async function  listContacts() {
     const contacts = await fs.readFile(contactsPath);
-    console.log(contacts);
     return JSON.parse(contacts);
   }
   
   async function getContactById(contactId) {
     const contacts = await listContacts();
-    const contact = contacts.find( ({id}) => id === contactId);
-    console.log(contact);
+    const getContactId = String(contactId);
+    const contact = contacts.find( ({id}) => id === getContactId);
     return contact || null;
   }
   
   async function removeContact(contactId) {
     const contacts = await listContacts();
-    const index = contacts.findIndex(contact => contact.id ===contactId );
+    const getContactId = String(contactId);
+    const index = contacts.findIndex(contact => contact.id ===getContactId );
     if(index === -1) {
       return null;
     }
-    const [result] = contacts.splice(index,1)
-    console.log(result);
+    const [result] = contacts.splice(index,1);
     await writeContacts(contacts);
     return result;
   }
@@ -41,7 +40,6 @@ async function  listContacts() {
     const contacts = await listContacts();
     contacts.push(newContact);
     await writeContacts(contacts);
-    console.log(newContact);
     return newContact;
   }
 
