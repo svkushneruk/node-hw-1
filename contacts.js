@@ -8,12 +8,14 @@ const writeContacts = async (contacts) => await fs.writeFile(contactsPath, JSON.
 
 async function  listContacts() {
     const contacts = await fs.readFile(contactsPath);
+    console.log(contacts);
     return JSON.parse(contacts);
   }
   
   async function getContactById(contactId) {
     const contacts = await listContacts();
     const contact = contacts.find( ({id}) => id === contactId);
+    console.log(contact);
     return contact || null;
   }
   
